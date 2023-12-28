@@ -1,6 +1,6 @@
-doc 创建一个32位的图像
+doc This is to create a 32-digit blank image format to load the pending-analyzed image.
 local GeoInfo gi
-doc GeoInfo就是一个地理信息的对象
+doc GeoInfo is a geographical object
 
 local integer tfid,tfid2
 local string img_in , img_out
