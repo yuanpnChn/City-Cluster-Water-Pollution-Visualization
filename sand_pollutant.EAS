@@ -1,0 +1,54 @@
+doc This program is for water_mask !
+
+local string img_in , img_out
+local double aw[3],bw[3],ew[3],as[3],bs[3],es[3],au[3],bu[3],eu[3]
+local double u,pw
+
+img_in = imgIn
+doc img_out = imgIn
+
+aw[1]=0.0188814
+aw[3]=0.3943825
+
+
+bw[1]=0.0202555
+bw[3]=0.1487526
+
+as[1]=0.1025742
+as[3]=0.0105704
+
+bs[1]=0.11309477
+bs[3]=0.071644764
+
+au[1]=0.2350962
+au[3]=0.1456789
+
+bu[1]=0.0193108
+bu[3]=0.0133632 
+
+
+ew[1]=0.039136919
+ew[3]=0.543135089
+
+es[1]=0.129209526
+es[3]=0.029357806
+
+eu[1]=0.254406925
+eu[3]=0.159042099
+
+u=2.660606903
+pw=1.021974123
+
+print "------ Doing sand_pollutant.EAS  ! -----"
+
+MODEL ON img_in
+   if %5=1 then
+      %6=((bw[1]*pw-4*u*ew[1]*%1)/(4*u*es[1]*%1-bs[1])-(bw[3]*pw-4*u*ew[3]*%3)/(4*u*es[3]*%3-bs[3]))/((4*u*eu[1]*%1-bu[1])/(4*u*es[1]*%1-bs[1])-(4*u*eu[3]*%3-bu[3])/(4*u*es[3]*%3-bs[3]))
+      %7=((bw[1]*pw-4*u*ew[1]*%1)-(4*u*eu[1]*%1-bu[1])*%6)/(4*u*es[1]*%1-bs[1])
+   else
+      %6=-0.2   
+      %7=-0.2
+   endif
+ENDMODEL
+
+print "--------The End of sand_pollutant.EAS ! -------"

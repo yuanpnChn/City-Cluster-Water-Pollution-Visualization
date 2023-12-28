@@ -1,0 +1,57 @@
+doc FME中值滤波去掉噪声点
+doc FAV均值滤波平滑突变情况
+doc FMO自动分类
+doc This section of program is for erase noises with  Median filter over the image.
+local string img_in 
+
+img_in = imgRc
+print "img_in:   ", img_in
+
+print  "---  Median filtering . "
+FILE = img_in 
+DBIC = 6                 
+DBOC = 6                
+doc FLSZ = 5,5   
+FLSZ = 3,3           
+MASK =                  
+RUN FME
+
+FILE = img_in 
+DBIC = 7                 
+DBOC = 7                   
+FLSZ = 3,3          
+MASK =                  
+RUN FME
+
+print  "---  Average filtering . "
+FILE = img_in 
+DBIC = 6                 
+DBOC = 6                 
+FLSZ = 3, 3          
+MASK =                  
+RUN FAV
+
+FILE = img_in 
+DBIC = 7                
+DBOC = 7                 
+FLSZ = 3, 3         
+MASK =                  
+RUN FAV
+
+print  "---  Mode filtering . "
+FILE = img_in 
+DBIC = 6               
+DBOC = 6                  
+FLSZ = 3, 3     
+MASK = 
+THINLINE = "OFF"                  
+RUN FMO
+
+DBIC = 7               
+DBOC = 7                      
+FLSZ = 3, 3   
+MASK =     
+THINLINE = "OFF"              
+RUN FMO
+
+print "----- Median and Mode filtering are finished ! -----"

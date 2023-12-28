@@ -1,0 +1,26 @@
+doc This section of program is for transfer data of 8bit from file_prj to file_prj32 of 32bits.
+local string img_in , img_out
+local int tfid
+doc img_in = file_prj
+doc img_out = file_prj32
+
+img_in = imgOrg
+img_out = imgIn
+
+ print "img_in:   ", img_in
+ print "img_out:   ", img_out
+print "------ Transfering data form file_in of 8bit to file_ex of 32bits ! -----"
+
+ tfid = DBOpen(img_in, "r")
+  MODEL ON img_out 
+     doc  Transfer data to reflectance:
+     %1= %{tfid, 1}
+     %2= %{tfid, 2}
+     %3= %{tfid, 3}
+     %4= %{tfid, 4}
+     %5= %{tfid, 5}
+     %6= %{tfid, 6}
+     %7= %{tfid, 7}
+  ENDMODEL
+ call DBClose(tfid)
+print "-------- Transfering data to 32bits is finished ! -----"

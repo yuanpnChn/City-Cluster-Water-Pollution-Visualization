@@ -1,0 +1,20 @@
+doc This program is for water_mask !
+doc 结果存在第五波段
+
+local string img_in , img_out
+img_in = imgIn
+img_out = imgIn
+
+print "------ Doing water_mask  ! -----"
+
+      MODEL ON img_in
+        if %1>0 or %2>0 or %4>0 then
+           if %4<0.11 and %3>%4 and %5<0.035 then
+             %5=1
+           else
+             %5=0
+           endif
+        endif
+      ENDMODEL
+
+print "--------The End of water_mask.EAS ! -------"

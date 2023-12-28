@@ -1,0 +1,98 @@
+print "myMain.EAS is running."  
+
+
+global string programPath,pathOrg,pathOut
+doc 三个全局变量分别为程序变量，原始图像路径，输出图像路径
+
+
+  global string imgOrg, imgIn,imgOut
+doc 原始图像名  该步骤输入图像名 该步骤输出图像名
+
+  global string imgRc, imgAc,imgGc
+doc Rc是几何纠正的，这里不用
+
+  global string imgCs, imgCu
+doc Cs是浑浊度图像，Cu有机污染物
+
+  programPath=easiPath
+  doc pathOrg="E:\EASI\gz_tm_98"
+  doc pathOut="E:\EASI\outImage"
+
+ pathOrg="D:\DLYG"
+  pathOut="D:\DLYG\outImage"
+  print " programPath=", programPath
+  print " pathOrg    =", pathOrg
+  print " pathOut    =", pathOut
+
+  load programPath+"\createGeo32Img.EAS"
+  load programPath+"\transferDataTo32.EAS"
+  load programPath+"\calibrationTm.EAS"
+  load programPath+"\rad_c.EAS"
+  load programPath+"\air_c.EAS"
+  load programPath+"\water_mask.EAS"
+  load programPath+"\sand_pollutant.EAS"
+  load programPath+"\mend.EAS"
+  load programPath+"\tif_export_colour.EAS"
+  load programPath+"\Med_ModFilter.EAS"
+
+
+  imgOrg=pathOrg+"\gz.pix"
+  imgIn= pathOut+"\gz_tm_rc.pix"
+  imgRc= pathOut+"\gz_tm_rc.pix"
+
+  imgCs= pathOut+"\gz_Cs.pix"
+  imgCu= pathOut+"\gz_Cu.pix"
+
+doc 分步程序只能做一次
+  
+run createGeo32Img
+doc 创建一个32位的空图像
+
+
+
+
+run transferDataTo32
+doc 将原始图像装进32位空图像中
+
+
+run calibrationTm 
+doc 辐射定标
+
+
+run rad_c
+doc 辐射纠正
+
+
+run air_c
+doc 大气纠正
+print"haha"
+stop
+
+doc run water_mask
+doc 水陆分离
+
+
+
+doc run sand_pollutant
+doc 反演有机污染物和悬浮泥沙
+
+
+doc run mend
+doc 修补，去掉噪声点，即明显错误，负数
+
+
+doc run Med_ModFilter
+doc 滤波
+
+
+
+
+ run tif_export_colour
+doc 密度分割，输出彩色图
+
+
+print "The Progress is finish !"
+stop
+
+
+

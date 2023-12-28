@@ -1,0 +1,7 @@
+global string easiPath
+
+doc easiPath="D:\My Documents_old\教学\地学遥感实习\辐射定标" 
+easiPath="D:\My Documents_old\教学\定量遥感\实习\EASI的使用\EASI"
+load easiPath+"\myMain.EAS"
+
+run myMain
