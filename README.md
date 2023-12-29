@@ -11,6 +11,7 @@ Overview:
 
 -Analysis Methods: radiometric calibration, atmospheric correction, water-land separation, and denoising processes.
 
+
 Workflow:
 Process Steps:
 1. Radiometric calibration and atmospheric correction for surface reflectance conversion.
@@ -18,6 +19,7 @@ Process Steps:
 3. Inversion of remote sensing data for organic pollution and turbidity analysis.
 4. Employed median and mean filtering for enhanced result clarity.
 5. Density segmentation for the visual representation of pollution levels.
+
 
 Acknowledgment:
 This project was guided by the Professor Ruru Deng from the School of Geography and Planning, Sun Yat-sen University. Sincere thanks to Professor Deng for his invaluable contributions to the field of remote sensing and environmental monitoring.
