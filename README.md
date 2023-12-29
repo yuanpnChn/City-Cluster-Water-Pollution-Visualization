@@ -2,9 +2,13 @@
 An environmental modeling &amp; monitoring project that visualizes the water quality within Greater Bay Area city cluster, China
 
 Overview:
+
 -Background: This project aimed to visualize the water pollution (organic pollution and sand turbidity) level and evaluate water quality in the Pearl River Delta City Agglomeration.
+
 -Highlights: Implemented a remote sensing modeling technique using PCI Geomatica V9.0 and EASI scripting for processing and analyzing a TM satellite imagery.
+
 -Skills & Tools Used: PCI Geomatica V9.0, EASI scripting, image preprocessing, and remote sensing inversion and visualization.
+
 -Analysis Methods: radiometric calibration, atmospheric correction, water-land separation, and denoising processes.
 
 Workflow:
