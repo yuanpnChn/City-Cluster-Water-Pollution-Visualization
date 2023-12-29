@@ -22,4 +22,5 @@ Process Steps:
 
 
 Acknowledgment:
-This project was guided by the Professor Ruru Deng from the School of Geography and Planning, Sun Yat-sen University. Sincere thanks to Professor Deng for his invaluable contributions to the field of remote sensing and environmental monitoring.
+
+This project's original reference codes were provided by Professor Ruru Deng from the School of Geography and Planning, Sun Yat-sen University. Sincere thanks to Professor Deng for his invaluable contributions to the fields of remote sensing and environmental monitoring.
