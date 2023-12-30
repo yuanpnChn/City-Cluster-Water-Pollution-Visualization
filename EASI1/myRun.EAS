@@ -1,0 +1,10 @@
+doc This is the
+global string easiPath
+
+print "myRun is running"
+
+doc easiPath="D:\DLYG\EASI1" 
+easiPath="D:\DLYG\EASI1"
+load easiPath+"\myMain.EAS"
+
+run myMain

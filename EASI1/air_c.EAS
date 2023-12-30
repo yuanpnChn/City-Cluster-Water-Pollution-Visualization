@@ -1,0 +1,20 @@
+doc This program is for calibration of TM images !
+
+local string img_in , img_out
+img_in = imgIn
+img_out = imgIn
+
+print "------ Doing air_c ! ! -----"
+
+MODEL ON img_in
+   if %1>0 or %2>0 or %4>0 then
+      %1=1.582428338*%1-0.093606542
+      %2=1.381548029*%2-0.055880025
+      %3=1.249708929*%3-0.034191907
+      %4=1.193615855*%4-0.025715001
+      %5=1.030722409*%5-0.003705369
+      %7=1.011075046*%7-0.00131908
+   endif
+ENDMODEL
+
+print "--------The End of air_c.EAS ! -------"

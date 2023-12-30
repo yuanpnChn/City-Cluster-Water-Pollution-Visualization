@@ -1,0 +1,49 @@
+doc 创建一个32位的图像
+local GeoInfo gi
+doc GeoInfo就是一个地理信息的对象
+
+local integer tfid,tfid2
+local string img_in , img_out
+local int pixels, lines
+local string f_status
+doc f_status存放文件的状态
+
+img_in = imgOrg
+img_out = imgIn
+   print "img_in:  " , img_in
+   print "img_out:  " , img_out
+
+doc GetStat就是获取文件的状态，存在创建一个数字，不存在显示为空
+   f_status = GetStat( img_out )
+   if !f_status =" " then
+     
+       print "---img_out: ",  img_out, " is already exist ! "
+       delete img_out noerror
+       print "---Delete ", img_out, " file first to run createResultImg ! "
+   endif
+
+doc 数据读取：行列数，地理参照
+tfid = DBOpen( img_in, "r" )
+pixels = DBPixels(tfid)
+lines = DBLines(tfid)
+print "------ Pixels: ", pixels , "      Lines: ", lines    
+call DBReadGeoInfo( tfid, gi )
+call DBClose( tfid )
+
+doc 创建新图像，7个32bit波段
+FILE=img_out
+doc TEX1="TM: " + dirlist[ii]  +"assitant image"    
+TEX1= 
+TEX2=
+DBSZ= pixels , lines
+PXSZ=30 , 30               
+DBNC=0,0,0,7              
+doc DBLAYOUT="PIXEL"   
+DBLAYOUT="BAND"  
+RUN CIM
+
+tfid2 = DBOpen( img_out, "r+" )
+call DBWriteGeoInfo( tfid2, gi )
+call DBClose( tfid2 )
+
+print "-------- The end of createGeo32Img.EAS.  --- "

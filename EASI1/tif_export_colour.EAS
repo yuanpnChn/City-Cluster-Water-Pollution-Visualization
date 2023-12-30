@@ -1,0 +1,139 @@
+doc This section of program is for Export colour u, s and c !.
+doc 分八级，每一级不同颜色
+local string img_in , img_out, img_as, f_status
+doc local string img_rs, img_rc, img_ru, img_ry, img_ral,img_msk
+
+local double s_max, u_max, c_max,al_max
+local double step
+local int tfid, tfid1, tfid2
+local int flag,pixels,lines
+local GeoInfo gi
+
+   img_in = imgRc
+   img_out = imgCu
+   print "img_in:   " , img_in
+   print "img_out:  " , img_out
+
+   u_max=10
+   s_max=30
+
+   doc ---输现有机污染密度分割图
+   doc --- run building image .
+   print "--- building  ",img_out
+   f_status = GetStat( img_out )
+   if !f_status =" " then
+       print "---img_out: ",  img_out, " is already exist ! "
+       print "---Delete ", img_out, " file first to run createResultImg ! "
+       delete img_out noerror
+   endif
+
+   doc ---
+   tfid = DBOpen( img_in, "r" )
+   pixels = DBPixels(tfid)
+   lines = DBLines(tfid)
+      print "--- Pixels: ", pixels , "      Lines: ", lines    
+   call DBReadGeoInfo( tfid, gi )
+   call DBClose( tfid )
+
+   FILE=img_out   
+   TEX1= 
+   TEX2=
+   DBSZ= pixels , lines
+   PXSZ=30 , 30               
+   DBNC=3,0,0,0               
+   DBLAYOUT="BAND"  
+   RUN CIM
+
+   tfid2 = DBOpen( img_out, "r+" )
+   call DBWriteGeoInfo( tfid2, gi )
+   call DBClose( tfid2 )
+   doc ---
+
+   step = u_max/8
+   print "step =",step
+
+   tfid = DBOpen(img_out, "r+")
+   MODEL ON img_in
+     if %5=1 then
+          if %5 = 0 then; %{tfid, 1}=  0; %{tfid, 2}=0; %{tfid, 3}=255 
+          elseif %6 >0     & %6<= step    then; %{tfid, 1}=  0; %{tfid, 2}=  60; %{tfid, 3}=255   
+          elseif %6>  step & %6=< 2*step  then; %{tfid, 1}=  0; %{tfid, 2}= 155; %{tfid, 3}=255   
+          elseif %6>2*step & %6=< 3*step  then; %{tfid, 1}= 50; %{tfid, 2}= 255; %{tfid, 3}=230
+          elseif %6>3*step & %6=< 4*step  then; %{tfid, 1}=235; %{tfid, 2}= 255; %{tfid, 3}=0
+          elseif %6>4*step & %6=< 5*step  then; %{tfid, 1}=255; %{tfid, 2}= 195; %{tfid, 3}=0
+          elseif %6>5*step & %6=< 6*step  then; %{tfid, 1}=255; %{tfid, 2}=  50; %{tfid, 3}=0
+          elseif %6>6*step & %6=< 7*step  then; %{tfid, 1}=255; %{tfid, 2}=   0; %{tfid, 3}=50
+          elseif %6>7*step                then; %{tfid, 1}=255; %{tfid, 2}=   0; %{tfid, 3}=255
+          else ; %{tfid, 1}=0; %{tfid, 2}=0; %{tfid, 3}=250
+          endif
+      else
+          %{tfid, 1}=%3*900; %{tfid, 2}=%3*900; %{tfid, 3}=%3*900
+      endif
+   ENDMODEL
+   call DBClose(tfid)
+   print " The end of colour contour of u."
+   doc ---
+
+   doc ---输现悬沙密度分割图
+   print " "
+   img_out = imgCs
+
+   print "--- building  ",img_out
+   f_status = GetStat( img_out )
+   if !f_status =" " then
+       print "---img_out: ",  img_out, " is already exist ! "
+       print "---Delete ", img_out, " file first to run createResultImg ! "
+       delete img_out noerror
+   endif
+
+   doc ---
+   tfid = DBOpen( img_in, "r" )
+   pixels = DBPixels(tfid)
+   lines = DBLines(tfid)
+      print "--- Pixels: ", pixels , "      Lines: ", lines    
+   call DBReadGeoInfo( tfid, gi )
+   call DBClose( tfid )
+
+   print "Building ",img_out
+   FILE=img_out   
+   TEX1= 
+   TEX2=
+   DBSZ= pixels , lines
+   PXSZ=30 , 30               
+   DBNC=3,0,0,0               
+   DBLAYOUT="BAND"  
+   RUN CIM
+
+   tfid2 = DBOpen( img_out, "r+" )
+   call DBWriteGeoInfo( tfid2, gi )
+   call DBClose( tfid2 )
+   doc ---
+
+   step = s_max/8
+   print "step =",step
+
+   tfid = DBOpen(img_out, "r+")
+   MODEL ON img_in
+
+     if %5=1 then
+          if %5 = 0 then; %{tfid, 1}=  0; %{tfid, 2}=0; %{tfid, 3}=255 
+          elseif %7 >0     & %7<= step    then; %{tfid, 1}=  0; %{tfid, 2}=  60; %{tfid, 3}=255   
+          elseif %7>  step & %7=< 2*step  then; %{tfid, 1}=  0; %{tfid, 2}= 155; %{tfid, 3}=255   
+          elseif %7>2*step & %7=< 3*step  then; %{tfid, 1}= 50; %{tfid, 2}= 255; %{tfid, 3}=230
+          elseif %7>3*step & %7=< 4*step  then; %{tfid, 1}=235; %{tfid, 2}= 255; %{tfid, 3}=0
+          elseif %7>4*step & %7=< 5*step  then; %{tfid, 1}=255; %{tfid, 2}= 195; %{tfid, 3}=0
+          elseif %7>5*step & %7=< 6*step  then; %{tfid, 1}=255; %{tfid, 2}=  50; %{tfid, 3}=0
+          elseif %7>6*step & %7=< 7*step  then; %{tfid, 1}=255; %{tfid, 2}=   0; %{tfid, 3}=50
+          elseif %7>7*step                then; %{tfid, 1}=255; %{tfid, 2}=   0; %{tfid, 3}=255
+          doc else ; %{tfid, 1}=250; %{tfid, 2}=250; %{tfid, 3}=250
+          else ; %{tfid, 1}=0; %{tfid, 2}=0; %{tfid, 3}=250
+          endif
+      else
+          %{tfid, 1}=%3*900; %{tfid, 2}=%3*900; %{tfid, 3}=%3*900
+      endif
+   ENDMODEL
+   call DBClose(tfid)
+   print " The end of colour contour of s."
+   doc ---
+
+print "----- tif_export_colour.EAS is finished ! -----"

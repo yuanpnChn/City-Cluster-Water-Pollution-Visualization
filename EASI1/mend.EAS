@@ -1,0 +1,24 @@
+doc 六波段是有机污染要是小于-0.2赋值为0.2，大于50就赋值50
+doc 七波段悬浮泥沙，小于-0.2赋值为0.2，大于150赋值为150
+doc This program is for mend of TM images !
+
+local string img_in , img_out
+img_in = imgIn
+img_out = imgIn
+
+print "------ Doing mend.EAS ! -----"
+
+MODEL ON img_in
+   if %6<-0.2 then
+     %6=-0.2
+   elseif %6>50 then
+      %6=50
+   endif
+   if %7<-0.2 then
+     %7=-0.2
+   elseif %7>150 then
+      %7=150
+   endif
+ENDMODEL
+
+print "--------The End of mend.EAS ! -------"
